@@ -1,0 +1,5 @@
+eyepea-monitoring-agent (0.9-1) squeeze; urgency=low
+
+  * source package automatically created by stdeb 0.6.0+git
+
+ -- Ludovic Gasc <ludovic.gasc@eyepea.eu>  Mon, 13 Aug 2012 14:00:25 +0100

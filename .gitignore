@@ -1,0 +1,17 @@
+.directory
+venv/
+build/
+dist/
+*.egg-info/
+*.log
+*.pyc
+.~*#
+local_settings.py
+debian/files
+debian/pycompat
+debian/*.postinst.debhelper
+debian/*.prerm.debhelper
+debian/*.substvars
+debian/python-*/
+debian/eyepea-monitoring-agent/
+python-build-stamp-*

@@ -1,0 +1,97 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import os
+import logging.config
+import ConfigParser
+import signal
+import argparse
+
+from monitoring_agent.configurator import ConfiguratorException
+from monitoring_agent.nagios_plugins import NagiosPlugins
+from monitoring_agent.nsca import Nsca
+from monitoring_agent.ws_shinken import WsShinken, CacheFileException
+
+# Store config objects
+CONFIG = {}
+
+if __name__ == '__main__':
+
+    # Catch signals to remove the stack trace print when the program is stopped.
+    # PID file and caches file are correctly removed and closed by the latest "finally:"
+    for signum in [signal.SIGHUP, signal.SIGINT, signal.SIGQUIT, signal.SIGABRT, signal.SIGTERM, ]:
+        signal.signal(signum, (lambda signum, frame: None))
+
+    # CLI
+    ARGS_PARSER = argparse.ArgumentParser(description='Use nagios-plugins to send monitoring data by NSCA or WS_Shinken.',
+                                          epilog='Example: eyepea_monitoring_agent.py '
+        '--logconfig=/etc/eyepea_monitoring_agent/logging.ini --pidfile=/var/run/eyepea_monitoring_agent/pid')
+    ARGS_PARSER.add_argument('--nagios_plugins',
+                             default='/etc/eyepea_monitoring_agent/nagios_plugins.cfg',
+                             help='Nagios plugins config file.')
+    ARGS_PARSER.add_argument('--nsca',
+                             default='/etc/eyepea_monitoring_agent/nsca.cfg',
+                             help='NSCA config file.')
+    ARGS_PARSER.add_argument('--ws_shinken',
+                             default='/etc/eyepea_monitoring_agent/ws_shinken.cfg',
+                             help='WebService Shinken config file.')
+    ARGS_PARSER.add_argument('--logging',
+                             default='/etc/eyepea_monitoring_agent/logging.ini',
+                             help='Log config file.')
+    ARGS_PARSER.add_argument('--pid',
+                             default='/var/run/eyepea_monitoring_agent/pid',
+                             help='The pidfile, to avoid multiple instances.')
+    ARGS = ARGS_PARSER.parse_args()
+
+    # Logging
+    try:
+        logging.config.fileConfig(ARGS.logging)
+    except ConfigParser.NoSectionError:
+        print('Your logging file is wrong or is missing, please to provide a correct one.')
+    else:
+
+        # PID file management
+        if os.path.isfile(ARGS.pid):
+            logging.critical("%s already exists, exiting" % ARGS.pid)
+        else:
+            try:
+                file(ARGS.pid, 'w').write(str(os.getpid()))
+            except IOError:
+                logging.critical("Impossible to create the PID file: %s" % ARGS.pid)
+            else:
+                try:
+                    try:
+                        CONFIG['nsca'] = Nsca(ARGS.nsca)
+                        CONFIG['ws_shinken'] = WsShinken(ARGS.ws_shinken)
+                        CONFIG['nagios_plugins'] = NagiosPlugins(ARGS.nagios_plugins)
+                    except IOError:
+                        logging.critical("Impossible to read a config file") # @todo: give more details
+                    except CacheFileException, cache_exception:
+                        logging.critical("Impossible to read the cache file: '%s'", cache_exception.cache_file) # @todo: give more details
+                    except ConfiguratorException, ce:
+                        logging.critical("The config file '%s' is invalid, errors details below:", ce.config_file)
+                        for validation_error in ce.validation_errors:
+                            for item in ce.validation_errors[validation_error]:
+                                if ce.validation_errors[validation_error][item] != True:
+                                    logging.critical("The option '%s' is invalid: %s",
+                                                     item,
+                                                     ce.validation_errors[validation_error][item])
+                    else:
+                        for np_result in CONFIG['nagios_plugins'].launch_plugin():
+                            CONFIG['nsca'].send_result(np_result['return_code'],
+                                                       np_result['return_value'],
+                                                       np_result['service_description'])
+                            CONFIG['ws_shinken'].send_result(np_result['return_code'],
+                                                             np_result['return_value'],
+                                                             np_result['service_description'],
+                                                             np_result['time_stamp'])
+
+                except Exception, inst: # to log eventual exceptions
+                    logging.exception(inst)
+                finally:
+                    if 'ws_shinken' in CONFIG:
+                        CONFIG['ws_shinken'].close_cache()
+                    try:
+                        os.unlink(ARGS.pid)
+                    except IOError:
+                        logging.critical("PID file is missing: %s" % ARGS.pid)

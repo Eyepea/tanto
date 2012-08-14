@@ -1,0 +1,22 @@
+Source: eyepea-monitoring-agent
+Maintainer: Ludovic Gasc <ludovic.gasc@eyepea.eu>
+Section: python
+Priority: optional
+Build-Depends: python-setuptools (>= 0.6b3), debhelper (>= 7.4.3), python-support (>= 0.8.4)
+Standards-Version: 3.8.4
+
+Package: eyepea-monitoring-agent
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python-argparse (>= 1.1), python-configobj (>= 4.7.2), python-nsca (>= 1.2), python-requests (>= 0.10.1)
+XB-Python-Version: ${python:Versions}
+Provides: ${python:Provides}
+Description: Takes monitoring data from Nagios-plugins to push with NSCA 
+ To monitor the servers with Shinken, Nagios or Icinga, system administrators usually configure active checks of the monitored servers.
+ It means the monitoring system must have a direct network access to the monitored server.
+ .
+ With Eyepea monitoring agent, this model is reverted, it does passive checks of your monitored servers.
+ You don't need to open an access from your monitoring system to the monitored servers.
+ .
+ The main use case of this tool is to monitor distant servers in a complex network where you can't connect directly for security reasons, typically with a large client.
+ You need only to open NSCA or HTTP(S) port from the monitored server to the monitoring system.
+ .

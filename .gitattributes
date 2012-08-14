@@ -1,0 +1,5 @@
+.gitattributes export-ignore
+.gitignore export-ignore
+.project export-ignore
+.pydevproject export-ignore
+.settings/org.eclipse.core.resources.prefs export-ignore
