@@ -99,7 +99,7 @@ class WsShinken(object):
             post_data['output'] = output
 
             if self.servers[server]['availability']:
-                url = '%s://%s:%s/%s' % (self.servers[server]['protocol'],
+                url = '%s://%s:%s%s' % (self.servers[server]['protocol'],
                                          self.servers[server]['host'],
                                          self.servers[server]['port'],
                                          self.servers[server]['uri'])
