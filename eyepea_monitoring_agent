@@ -25,7 +25,7 @@ if __name__ == '__main__':
     # CLI
     ARGS_PARSER = argparse.ArgumentParser(description='Use nagios-plugins to send monitoring data by NSCA or WS_Shinken.',
                                           epilog='Example: eyepea_monitoring_agent.py '
-        '--logconfig=/etc/eyepea_monitoring_agent/logging.ini --pidfile=/var/run/eyepea_monitoring_agent/pid')
+        '--logging=/etc/eyepea_monitoring_agent/logging.ini --pid=/var/run/eyepea_monitoring_agent/pid')
     ARGS_PARSER.add_argument('--nagios_plugins',
                              default='/etc/eyepea_monitoring_agent/nagios_plugins.cfg',
                              help='Nagios plugins config file.')
