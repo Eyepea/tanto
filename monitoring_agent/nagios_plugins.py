@@ -26,7 +26,7 @@ class NagiosPlugins(object):
         # Setup servers dict from config file
         self.plugins = configurator.read(config_file,
                                          configspec='configspecs/nagios_plugins.cfg',
-                                         list_values=False)
+                                         list_values=True)
 
     def launch_plugin(self):
         '''
@@ -35,11 +35,7 @@ class NagiosPlugins(object):
         # nagios_plugins probes
         for plugin in self.plugins:
             # Construct the nagios_plugin command
-            command = [os.path.join(self.plugins[plugin]['path'], plugin)]
-            for option_cmd in self.plugins[plugin]:
-                if option_cmd not in ['path']: # remove generic config option
-                    command.append('--%s=%s' % (option_cmd,
-                                                self.plugins[plugin][option_cmd], ))
+            command = ('%s%s' % (self.plugins[plugin]['path'], self.plugins[plugin]['command'])).split(' ')
 
             try:
                 nagios_plugin = subprocess.Popen(command,
@@ -60,4 +56,5 @@ class NagiosPlugins(object):
                 yield {'return_code': int(return_code),
                        'return_value': str(return_value),
                        'time_stamp': int(time.time()),
-                       'service_description': plugin}
+                       'service_description': plugin,
+                       'specific_servers': self.plugins[plugin]['servers']}

@@ -71,20 +71,22 @@ if __name__ == '__main__':
                     except ConfiguratorException, ce:
                         logging.critical("The config file '%s' is invalid, errors details below:", ce.config_file)
                         for validation_error in ce.validation_errors:
-                            for item in ce.validation_errors[validation_error]:
-                                if ce.validation_errors[validation_error][item] != True:
-                                    logging.critical("The option '%s' is invalid: %s",
-                                                     item,
-                                                     ce.validation_errors[validation_error][item])
+                            if type(ce.validation_errors[validation_error]) != bool:
+                                for item in ce.validation_errors[validation_error]:
+                                    if ce.validation_errors[validation_error][item] != True:
+                                        logging.critical("The option '%s' is invalid: %s",
+                                                         item,
+                                                         ce.validation_errors[validation_error][item])
                     else:
                         for np_result in CONFIG['nagios_plugins'].launch_plugin():
                             CONFIG['nsca'].send_result(np_result['return_code'],
                                                        np_result['return_value'],
-                                                       np_result['service_description'])
-                            CONFIG['ws_shinken'].send_result(np_result['return_code'],
-                                                             np_result['return_value'],
+                                                       np_result['service_description'],
+                                                       np_result['specific_servers'])
+                            CONFIG['ws_shinken'].send_result(np_result['return_value'],
                                                              np_result['service_description'],
-                                                             np_result['time_stamp'])
+                                                             np_result['time_stamp'],
+                                                             np_result['specific_servers'])
 
                 except Exception, inst: # to log eventual exceptions
                     logging.exception(inst)

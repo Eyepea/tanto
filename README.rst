@@ -31,7 +31,7 @@ The behaviour of this tool is simple:
 
 #. (**WS-Shinken only**) If the connexion between the monitored server and the monitoring system is broken, data is kept in a cache file, to be re-send the next run.
 
-**Warning:** WS-Shinken support isn't finished, it will be available for 1.0.
+**Warning:** WS-Shinken support isn't finished.
 
 How to install ?
 ----------------

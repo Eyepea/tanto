@@ -1,17 +1,17 @@
-Name: 			eyepea-monitoring-agent         
-Version:		0.9        
+Name: 			eyepea-monitoring-agent
+Version:		0.9
 Release:        	4%{?dist}
-Summary: 		Eyepea Monitoring agent for passive nagios checks     
+Summary: 		Eyepea Monitoring agent for passive nagios checks
 
 License: 		GNU Affero General Public License v3
 URL:                    https://pypi.python.org/pypi/eyepea-monitoring-agent
-Source0: 		https://pypi.python.org/packages/source/e/eyepea-monitoring-agent/eyepea-monitoring-agent-0.9.tar.gz                     
+Source0: 		https://pypi.python.org/packages/source/e/eyepea-monitoring-agent/eyepea-monitoring-agent-0.9.tar.gz
 
 BuildArch:             noarch
 Requires:              pynsca
 Requires:              python-mcrypt
 Requires:              python-configobj
-Requires:              python-requests 
+Requires:              python-requests
 Requires:              nagios-plugins-all
 
 %description
@@ -29,7 +29,7 @@ CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
 %{__python} setup.py install --single-version-externally-managed -O1 --root $RPM_BUILD_ROOT --record=INSTALLED_FILES
 
 %clean
-rm -rf 
+rm -rf
 
 %files
 %files -f INSTALLED_FILES
@@ -40,7 +40,7 @@ rm -rf
 
 
 %changelog
-* Sat Apr 06 2013 Tyler Bennett <tylerb@trix2vip.com> - 0.9-4
+* Sat Apr 06 2013 Tyler Bennett <tylerb@trix2voip.com> - 0.9-4
 - changed dependency nagios-plugins to nagios-plugins-all
 
 * Sat Apr 06 2013 Tyler Bennett <tylerb@trix2voip.com> - 0.9-3

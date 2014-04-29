@@ -32,11 +32,16 @@ class Nsca(object):
                                                                    password=self.servers[server]['password'])
 
 
-    def send_result(self, return_code, output, service_description=''):
+    def send_result(self, return_code, output, service_description='', specific_servers=None):
         '''
         Send results
         '''
-        for server in self.servers:
+        if specific_servers == None:
+            specific_servers = self.servers
+        else:
+            specific_servers = set(self.servers).intersection(specific_servers)
+
+        for server in specific_servers:
             if self.servers[server]['availability']:
                 try:
                     self.servers[server]['notifier'].svc_result(self.servers[server]['custom_fqdn'],

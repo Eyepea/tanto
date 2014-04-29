@@ -5,7 +5,7 @@ __docformat__ = 'rst'
 import os
 from setuptools import setup, find_packages
 
-long_description = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
+long_description = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read() + '\n\n' + open(os.path.join(os.path.dirname(__file__), 'HISTORY.rst')).read()
 
 setup(
     name='eyepea-monitoring-agent',

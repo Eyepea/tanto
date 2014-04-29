@@ -80,15 +80,17 @@ class WsShinken(object):
 
 
 
-    def send_result(self, return_code, output, service_description='', time_stamp=0, specific_servers=[]):
+    def send_result(self, return_code, output, service_description='', time_stamp=0, specific_servers=None):
         '''
         Send result to the Skinken WS
         '''
         if time_stamp == 0:
             time_stamp = int(time.time())
 
-        if specific_servers == []:
+        if specific_servers == None:
             specific_servers = self.servers
+        else:
+            specific_servers = set(self.servers).intersection(specific_servers)
 
         for server in specific_servers:
             post_data = {}
