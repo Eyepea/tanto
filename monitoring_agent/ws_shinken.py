@@ -3,7 +3,6 @@
 WS Shinken handling
 '''
 
-#from pprint import pprint as pp # debug only
 import logging
 import csv
 import os
@@ -11,6 +10,8 @@ import time
 import requests
 
 import configurator
+
+LOG = logging.getLogger(__name__)
 
 class WsShinkenException(RuntimeError):
     """Generic exception when a problem occurs."""
@@ -117,28 +118,28 @@ class WsShinken(object):
                                              timeout=self.servers[server]['timeout'],
                                              data=post_data)
                     if response.status_code == 400:
-                        logging.error("[ws_shinken][%s]: HTTP status: %s - The content of the WebService call is incorrect",
+                        LOG.error("[ws_shinken][%s]: HTTP status: %s - The content of the WebService call is incorrect",
                                       server,
                                       response.status_code)
                     elif response.status_code == 401:
-                        logging.error("[ws_shinken][%s]: HTTP status: %s - You must provide an username and password",
+                        LOG.error("[ws_shinken][%s]: HTTP status: %s - You must provide an username and password",
                                       server,
                                       response.status_code)
                     elif response.status_code == 403:
-                        logging.error("[ws_shinken][%s]: HTTP status: %s - The username or password is wrong",
+                        LOG.error("[ws_shinken][%s]: HTTP status: %s - The username or password is wrong",
                                       server,
                                       response.status_code)
                     elif response.status_code != 200:
-                        logging.error("[ws_shinken][%s]: HTTP status: %s", server, response.status_code)
+                        LOG.error("[ws_shinken][%s]: HTTP status: %s", server, response.status_code)
                 except (requests.ConnectionError, requests.Timeout), error:
                     self.servers[server]['availability'] = False
-                    logging.error(error)
+                    LOG.error(error)
             else:
-                logging.error("[ws_shinken][%s]: Data not sent, server is unavailable", server)
+                LOG.error("[ws_shinken][%s]: Data not sent, server is unavailable", server)
 
             if self.servers[server]['availability'] == False and self.servers[server]['cache'] == True:
                 self.servers[server]['csv'].writerow(post_data)
-                logging.info("[ws_shinken][%s]: Data cached", server)
+                LOG.info("[ws_shinken][%s]: Data cached", server)
 
 
     def close_cache(self):

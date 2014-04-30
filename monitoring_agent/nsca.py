@@ -3,12 +3,13 @@
 NSCA handling
 '''
 
-#from pprint import pprint as pp # debug only
 import logging
 import pynsca
 import socket
 
 import configurator
+
+LOG = logging.getLogger(__name__)
 
 class Nsca(object):
     '''
@@ -48,9 +49,9 @@ class Nsca(object):
                                                                 service_description,
                                                                 int(return_code),
                                                                 str(output))
-                    logging.info("[nsca][%s][%s]: Data sent", service_description, self.servers[server]['host'])
+                    LOG.info("[nsca][%s][%s]: Data sent", service_description, self.servers[server]['host'])
                 except (socket.gaierror, socket.error), error:
                     self.servers[server]['availability'] = False
-                    logging.error("[nsca][%s][%s]: %s", service_description, self.servers[server]['host'], error[1])
+                    LOG.error("[nsca][%s][%s]: %s", service_description, self.servers[server]['host'], error[1])
             else:
-                logging.error("[nsca][%s][%s]: Data not sent, server is unavailable", service_description, self.servers[server]['host'])
+                LOG.error("[nsca][%s][%s]: Data not sent, server is unavailable", service_description, self.servers[server]['host'])

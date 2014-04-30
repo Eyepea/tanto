@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-#from pprint import pprint as pp # debug only
 import logging
 import subprocess
 import os
@@ -12,6 +11,8 @@ STATUSES = [('OK', logging.INFO),
             ('WARNING', logging.INFO),
             ('CRITICAL', logging.INFO),
             ('UNKNOWN', logging.ERROR)]
+
+LOG = logging.getLogger(__name__)
 
 class NagiosPlugins(object):
     '''
@@ -43,12 +44,12 @@ class NagiosPlugins(object):
                                                  stdout=subprocess.PIPE,
                                                  stderr=subprocess.PIPE)
             except OSError:
-                logging.error("[nagios_plugins]: '%s' executable is missing",
+                LOG.error("[nagios_plugins]: '%s' executable is missing",
                               command[0])
             else:
                 return_value = nagios_plugin.communicate()[0].strip()
                 return_code = nagios_plugin.returncode
-                logging.log(STATUSES[return_code][1],
+                LOG.log(STATUSES[return_code][1],
                             "[nagios_plugins][%s] (%s status): %s",
                             os.path.basename(command[0]),
                             STATUSES[return_code][0],

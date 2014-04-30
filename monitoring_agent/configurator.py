@@ -3,7 +3,6 @@
 Read configuration via configobj
 '''
 
-from pprint import pprint as pp # debug only
 from os import path
 import socket
 from configobj import ConfigObj
