@@ -9,6 +9,7 @@ Release History
 - Change **nagios_plugins.cfg** syntax to give directly the command line to launch.
 - Add **servers** list parameter in **nagios_plugins.cfg** to define the servers list that must receive configuration.
 - Logging improvements
+- Rename **eyepea_monitoring_agent** to **Tanto**, a short blade in the same family as **Shinken**.
 
 0.9 (2012-08-14)
 ++++++++++++++++

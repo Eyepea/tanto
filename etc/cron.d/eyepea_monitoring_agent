@@ -1,2 +1,0 @@
-MAILTO=""
-*/5 * * * * root /usr/bin/env eyepea_monitoring_agent &> /dev/null

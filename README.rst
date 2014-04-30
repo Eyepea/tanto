@@ -1,8 +1,8 @@
-Eyepea monitoring agent
-=======================
+Tanto
+=====
 
-- `Github repository <https://github.com/Eyepea/eyepea_monitoring_agent>`_
-- `PyPI page <http://pypi.python.org/pypi/eyepea-monitoring-agent>`_
+- `Github repository <https://github.com/Eyepea/tanto>`_
+- `PyPI page <http://pypi.python.org/pypi/tanto>`_
 
 Overview
 --------
@@ -10,7 +10,7 @@ Overview
 To monitor the servers with Shinken, Nagios or Icinga, system administrators usually configure active checks of the monitored servers.
 It means the monitoring system must have a direct network access to the monitored server.
 
-With **Eyepea monitoring agent**, this model is reverted, it does passive checks of your monitored servers.
+With **Tanto**, this model is reverted, it does passive checks of your monitored servers.
 You don't need to open an access from your monitoring system to the monitored servers.
 
 The main use case of this tool is to monitor distant servers in a complex network where you can't connect directly for security reasons, typically with a large client.
@@ -36,24 +36,23 @@ The behaviour of this tool is simple:
 How to install ?
 ----------------
 
-Debian packages is the prefered method.
+You install as you wish, via sources, pip or Debian package.
 If you use another distribution, you can use the Python package or contribute to publish a package for your distribution.
 
 Debian
 ``````
 
-We are working to propose clean Debian packages, a first version exists in the **debian/** folder.
+We provide a Debian package source in the **debian/** folder.
 
 Python package
 ``````````````
 
-**Warning:** Root rights are necessary to install config files and cron file.
-pip install eyepea-monitoring-agent
+pip install tanto
 
 Usage
 -----
 
-- Default config files location: **/etc/eyepea_monitoring_agent/**
+- Default config files location: **/etc/tanto/**
 - Default cron file location: **/etc/cron.d/**
 
 #. Configure passive checks on your monitoring system:
@@ -74,12 +73,12 @@ Usage
 
 #. Fill in the credidentials for your monitoring system in **nsca.cfg** or **ws_shinken.cfg**.
 
-#. Adapt the checks frequency in: **/etc/cron.d/eyepea_monitoring_agent**.
+#. Adapt the checks frequency in: **/etc/cron.d/tanto**.
 
 CLI options
 -----------
 
-Launch: **eyepea_monitoring_agent --help**
+Launch: **tanto --help**
 You can override the location of each config file with a CLI parameter.
 
 Debug
@@ -91,7 +90,7 @@ You can customize this behaviour in **logging.ini**: http://docs.python.org/libr
 Support
 -------
 
-Community support is provided via Github: https://github.com/Eyepea/eyepea_monitoring_agent/issues
+Community support is provided via Github: https://github.com/Eyepea/tanto/issues
 
 You must provide the error log with your issue.
 
