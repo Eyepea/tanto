@@ -15,3 +15,6 @@ debian/*.substvars
 debian/python-*/
 debian/eyepea-monitoring-agent/
 python-build-stamp-*
+.project
+.pydevproject
+.settings
