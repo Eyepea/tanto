@@ -13,7 +13,7 @@ debian/*.postinst.debhelper
 debian/*.prerm.debhelper
 debian/*.substvars
 debian/python-*/
-debian/eyepea-monitoring-agent/
+debian/tanto/
 python-build-stamp-*
 .project
 .pydevproject

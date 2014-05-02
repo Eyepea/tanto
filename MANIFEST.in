@@ -1,1 +1,2 @@
-include README.rst LICENSE etc/* etc/cron.d/* monitoring_agent/configspecs/*
+include README.rst HISTORY.rst LICENSE monitoring_agent/configspecs/*
+recursive-include etc *

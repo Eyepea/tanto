@@ -8,14 +8,14 @@ from sys import version_info
 
 long_description = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read() + '\n\n' + open(os.path.join(os.path.dirname(__file__), 'HISTORY.rst')).read()
 
-install_requires=[
+install_requires=(
     'configobj>=4.7.2',
     'pynsca>=1.2',
     'requests>=0.10.1',
-],
+),
 # Python 2.6 and below requires argparse
 if version_info[:2] < (2, 7):
-    install_requires += ['argparse>=1.1']
+    install_requires+=('argparse>=1.1', )
 
 setup(
     name='tanto',
@@ -31,12 +31,11 @@ setup(
     zip_safe=False,
     platforms='UNIX',
     package_data={'monitoring_agent': ['configspecs/*.cfg']},
-    data_files=[('/etc/tanto', ['etc/tanto/logging.ini',
+    data_files=[('etc/tanto', ['etc/tanto/logging.ini',
                                                   'etc/tanto/nagios_plugins.cfg',
                                                   'etc/tanto/nsca.cfg',
                                                   'etc/tanto/ws_shinken.cfg']),
-                ('/etc/cron.d', ['etc/cron.d/tanto']),
-                ('/var/lib/tanto', ['etc/.placeholder']),],
+                ('etc/cron.d', ['etc/cron.d/tanto']),],
     license='GNU Affero General Public License v3',
     install_requires=install_requires,
     classifiers=[

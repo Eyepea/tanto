@@ -1,3 +1,10 @@
+tanto (1.0) squeeze; urgency=low
+
+  * New name: Tanto
+  * New features, see HISTORY.rst
+
+ -- Ludovic Gasc <ludovic.gasc@eyepea.eu>  Fri, 02 May 2014 12:36:33 +0100
+
 eyepea-monitoring-agent (0.9-1) squeeze; urgency=low
 
   * source package automatically created by stdeb 0.6.0+git
