@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 7.4.3), python, dh-virtualenv, python-dev
 Standards-Version: 3.9.5
 
 Package: tanto
-Architecture: all
+Architecture: any
 Depends: ${misc:Depends}, ${python:Depends}, nagios-plugins
 Conflicts: ep-monitoring
 XB-Python-Version: ${python:Versions}
