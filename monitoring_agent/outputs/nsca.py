@@ -7,7 +7,7 @@ import logging
 import pynsca
 import socket
 
-import configurator
+from monitoring_agent import configurator
 
 LOG = logging.getLogger(__name__)
 
@@ -23,7 +23,7 @@ class Nsca(object):
         '''
         # Setup servers dict from config file
         self.servers = configurator.read(config_file,
-                                         configspec='configspecs/nsca.cfg',
+                                         configspec='outputs/configspecs/nsca.cfg',
                                          server_mode=True)
         # start NSCA connexions
         for server in self.servers:

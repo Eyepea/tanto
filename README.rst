@@ -21,7 +21,7 @@ Technical details
 
 The behaviour of this tool is simple:
 
-.. image:: http://files.eyepea.eu/monitoring/schema.png
+.. image:: https://raw.githubusercontent.com/Eyepea/tanto/master/docs/schema.png
 
 #. The program is started by cron.
 

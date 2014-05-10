@@ -3,7 +3,13 @@
 Release History
 ---------------
 
-1.0 (YYYY-MM-DD)
+1.1 (YYYY-MM-DD)
+++++++++++++++++
+
+- Move config files in **input/** and **output/** to be easier to understand.
+- Reduce command line arguments for config files.
+
+1.0 (2014-05-06)
 ++++++++++++++++
 
 - Change **nagios_plugins.cfg** syntax to give directly the command line to launch.

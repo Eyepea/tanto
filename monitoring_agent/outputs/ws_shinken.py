@@ -9,7 +9,7 @@ import os
 import time
 import requests
 
-import configurator
+from monitoring_agent import configurator
 
 LOG = logging.getLogger(__name__)
 
@@ -53,7 +53,7 @@ class WsShinken(object):
         self.http_headers = {'content-type': 'application/json', 'accept': 'application/json'}
         # Setup servers dict
         self.servers = configurator.read(config_file,
-                                         configspec='configspecs/ws_shinken.cfg',
+                                         configspec='outputs/configspecs/ws_shinken.cfg',
                                          server_mode=True)
         for server in self.servers:
             if self.servers[server]['cache'] == True:

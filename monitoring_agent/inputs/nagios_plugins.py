@@ -5,7 +5,7 @@ import subprocess
 import os
 import time
 
-import configurator
+from monitoring_agent import configurator
 
 STATUSES = [('OK', logging.INFO),
             ('WARNING', logging.INFO),
@@ -26,7 +26,7 @@ class NagiosPlugins(object):
         '''
         # Setup servers dict from config file
         self.plugins = configurator.read(config_file,
-                                         configspec='configspecs/nagios_plugins.cfg',
+                                         configspec='inputs/configspecs/nagios_plugins.cfg',
                                          list_values=True)
 
     def launch_plugin(self):

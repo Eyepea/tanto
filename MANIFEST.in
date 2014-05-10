@@ -1,2 +1,2 @@
-include README.rst HISTORY.rst LICENSE monitoring_agent/configspecs/*
+include README.rst HISTORY.rst LICENSE monitoring_agent/inputs/configspecs/* monitoring_agent/outputs/configspecs/*
 recursive-include etc *

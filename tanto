@@ -8,9 +8,9 @@ import signal
 import argparse
 
 from monitoring_agent.configurator import ConfiguratorException
-from monitoring_agent.nagios_plugins import NagiosPlugins
-from monitoring_agent.nsca import Nsca
-from monitoring_agent.ws_shinken import WsShinken, CacheFileException
+from monitoring_agent.inputs.nagios_plugins import NagiosPlugins
+from monitoring_agent.outputs.nsca import Nsca
+from monitoring_agent.outputs.ws_shinken import WsShinken, CacheFileException
 
 # Store config objects
 CONFIG = {}
@@ -26,20 +26,11 @@ if __name__ == '__main__':
 
     # CLI
     ARGS_PARSER = argparse.ArgumentParser(description='Use nagios-plugins to send monitoring data by NSCA or WS_Shinken.',
-                                          epilog='Example: tanto.py '
-        '--logging=/etc/tanto/logging.ini --pid=/var/run/tanto.pid')
-    ARGS_PARSER.add_argument('--nagios_plugins',
-                             default='/etc/tanto/nagios_plugins.cfg',
-                             help='Nagios plugins config file.')
-    ARGS_PARSER.add_argument('--nsca',
-                             default='/etc/tanto/nsca.cfg',
-                             help='NSCA config file.')
-    ARGS_PARSER.add_argument('--ws_shinken',
-                             default='/etc/tanto/ws_shinken.cfg',
-                             help='WebService Shinken config file.')
-    ARGS_PARSER.add_argument('--logging',
-                             default='/etc/tanto/logging.ini',
-                             help='Log config file.')
+                                          epilog='Example: tanto '
+        '--config_dir=/etc/tanto --pid=/var/run/tanto.pid')
+    ARGS_PARSER.add_argument('--config_dir',
+                             default='/etc/tanto',
+                             help='Config files directory.')
     ARGS_PARSER.add_argument('--pid',
                              default='/var/run/tanto.pid',
                              help='The pidfile, to avoid multiple instances.')
@@ -47,7 +38,7 @@ if __name__ == '__main__':
 
     # Logging
     try:
-        logging.config.fileConfig(ARGS.logging, disable_existing_loggers=False)
+        logging.config.fileConfig(os.path.join(ARGS.config_dir, 'logging.ini'), disable_existing_loggers=False)
     except ConfigParser.NoSectionError:
         print('Your logging file is wrong or is missing, please to provide a correct one.')
     else:
@@ -63,9 +54,9 @@ if __name__ == '__main__':
             else:
                 try:
                     try:
-                        CONFIG['nsca'] = Nsca(ARGS.nsca)
-                        CONFIG['ws_shinken'] = WsShinken(ARGS.ws_shinken)
-                        CONFIG['nagios_plugins'] = NagiosPlugins(ARGS.nagios_plugins)
+                        CONFIG['nagios_plugins'] = NagiosPlugins(os.path.join(ARGS.config_dir, 'inputs/nagios_plugins.cfg'))
+                        CONFIG['nsca'] = Nsca(os.path.join(ARGS.config_dir, 'outputs/nsca.cfg'))
+                        CONFIG['ws_shinken'] = WsShinken(os.path.join(ARGS.config_dir, 'outputs/ws_shinken.cfg'))
                     except IOError:
                         LOG.critical("Impossible to read a config file") # @todo: give more details
                     except CacheFileException, cache_exception:
