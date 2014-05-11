@@ -9,6 +9,7 @@ import argparse
 
 from monitoring_agent.configurator import ConfiguratorException
 from monitoring_agent.inputs.nagios_plugins import NagiosPlugins
+from monitoring_agent.outputs.email import Email
 from monitoring_agent.outputs.nsca import Nsca
 from monitoring_agent.outputs.ws_shinken import WsShinken, CacheFileException
 
@@ -55,10 +56,11 @@ if __name__ == '__main__':
                 try:
                     try:
                         CONFIG['nagios_plugins'] = NagiosPlugins(os.path.join(ARGS.config_dir, 'inputs/nagios_plugins.cfg'))
+                        CONFIG['email'] = Email(os.path.join(ARGS.config_dir, 'outputs/email.cfg'))
                         CONFIG['nsca'] = Nsca(os.path.join(ARGS.config_dir, 'outputs/nsca.cfg'))
                         CONFIG['ws_shinken'] = WsShinken(os.path.join(ARGS.config_dir, 'outputs/ws_shinken.cfg'))
-                    except IOError:
-                        LOG.critical("Impossible to read a config file") # @todo: give more details
+                    except IOError, e:
+                        LOG.critical("Impossible to read a config file: %r", e) # @todo: give more details
                     except CacheFileException, cache_exception:
                         LOG.critical("Impossible to read the cache file: '%s'", cache_exception.cache_file) # @todo: give more details
                     except ConfiguratorException, ce:
@@ -72,14 +74,19 @@ if __name__ == '__main__':
                                                      ce.validation_errors[validation_error][item])
                     else:
                         for np_result in CONFIG['nagios_plugins'].launch_plugin():
-                            CONFIG['nsca'].send_result(np_result['return_code'],
-                                                       np_result['return_value'],
+                            CONFIG['email'].aggregate_result(np_result['return_code'],
+                                                       np_result['output'],
                                                        np_result['service_description'],
                                                        np_result['specific_servers'])
-                            CONFIG['ws_shinken'].send_result(np_result['return_value'],
+                            CONFIG['nsca'].send_result(np_result['return_code'],
+                                                       np_result['output'],
+                                                       np_result['service_description'],
+                                                       np_result['specific_servers'])
+                            CONFIG['ws_shinken'].send_result(np_result['output'],
                                                              np_result['service_description'],
                                                              np_result['time_stamp'],
                                                              np_result['specific_servers'])
+                        CONFIG['email'].send_results()
 
                 except Exception, inst: # to log eventual exceptions
                     LOG.exception(inst)

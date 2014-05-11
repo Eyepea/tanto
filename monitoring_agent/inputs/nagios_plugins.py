@@ -47,15 +47,15 @@ class NagiosPlugins(object):
                 LOG.error("[nagios_plugins]: '%s' executable is missing",
                               command[0])
             else:
-                return_value = nagios_plugin.communicate()[0].strip()
+                output = nagios_plugin.communicate()[0].strip()
                 return_code = nagios_plugin.returncode
                 LOG.log(STATUSES[return_code][1],
                             "[nagios_plugins][%s] (%s status): %s",
                             os.path.basename(command[0]),
                             STATUSES[return_code][0],
-                            return_value)
+                            output)
                 yield {'return_code': int(return_code),
-                       'return_value': str(return_value),
+                       'output': str(output),
                        'time_stamp': int(time.time()),
                        'service_description': plugin,
                        'specific_servers': self.plugins[plugin]['servers']}

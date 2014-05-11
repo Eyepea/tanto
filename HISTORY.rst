@@ -3,9 +3,10 @@
 Release History
 ---------------
 
-1.1 (YYYY-MM-DD)
+1.1 (2014-05-12)
 ++++++++++++++++
 
+- Add e-mail notifications for simple infrastructures without a monitoring server.
 - Move config files in **input/** and **output/** to be easier to understand.
 - Reduce command line arguments for config files.
 
