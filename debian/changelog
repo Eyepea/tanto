@@ -1,3 +1,11 @@
+tanto (1.1) squeeze; urgency=low
+
+  * Add e-mail notifications for simple infrastructures without a monitoring server.
+  * Move config files in **input/** and **output/** to be easier to understand.
+  * Reduce command line arguments for config files.
+
+ -- Ludovic Gasc <ludovic.gasc@eyepea.eu>  Fri, 11 May 2014 20:05:24 +0200
+
 tanto (1.0) squeeze; urgency=low
 
   * New name: Tanto

@@ -17,14 +17,15 @@ override_dh_link:
 	dh_link
 
 	mkdir -p ./debian/tanto/etc/tanto/inputs
-    mkdir -p ./debian/tanto/etc/tanto/outputs
-	cp ./debian/tanto/usr/share/python/tanto/lib/python2.7/site-packages/tanto-1.0-py2.7.egg/etc/tanto/logging.ini ./debian/tanto/etc/tanto/logging.ini
-	cp ./debian/tanto/usr/share/python/tanto/lib/python2.7/site-packages/tanto-1.0-py2.7.egg/etc/tanto/inputs/nagios_plugins.cfg ./debian/tanto/etc/tanto/inputs/nagios_plugins.cfg
-	cp ./debian/tanto/usr/share/python/tanto/lib/python2.7/site-packages/tanto-1.0-py2.7.egg/etc/tanto/outputs/nsca.cfg ./debian/tanto/etc/tanto/outputs/nsca.cfg
-	cp ./debian/tanto/usr/share/python/tanto/lib/python2.7/site-packages/tanto-1.0-py2.7.egg/etc/tanto/outputs/ws_shinken.cfg ./debian/tanto/etc/tanto/outputs/ws_shinken.cfg
+	mkdir -p ./debian/tanto/etc/tanto/outputs
+	cp ./debian/tanto/usr/share/python/tanto/lib/python2.7/site-packages/tanto-1.1-py2.7.egg/etc/tanto/logging.ini ./debian/tanto/etc/tanto/logging.ini
+	cp ./debian/tanto/usr/share/python/tanto/lib/python2.7/site-packages/tanto-1.1-py2.7.egg/etc/tanto/inputs/nagios_plugins.cfg ./debian/tanto/etc/tanto/inputs/nagios_plugins.cfg
+	cp ./debian/tanto/usr/share/python/tanto/lib/python2.7/site-packages/tanto-1.1-py2.7.egg/etc/tanto/outputs/email.cfg ./debian/tanto/etc/tanto/outputs/email.cfg
+	cp ./debian/tanto/usr/share/python/tanto/lib/python2.7/site-packages/tanto-1.1-py2.7.egg/etc/tanto/outputs/nsca.cfg ./debian/tanto/etc/tanto/outputs/nsca.cfg
+	cp ./debian/tanto/usr/share/python/tanto/lib/python2.7/site-packages/tanto-1.1-py2.7.egg/etc/tanto/outputs/ws_shinken.cfg ./debian/tanto/etc/tanto/outputs/ws_shinken.cfg
 
 	mkdir -p ./debian/tanto/etc/cron.d
-	cp ./debian/tanto/usr/share/python/tanto/lib/python2.7/site-packages/tanto-1.0-py2.7.egg/etc/cron.d/tanto ./debian/tanto/etc/cron.d/tanto
+	cp ./debian/tanto/usr/share/python/tanto/lib/python2.7/site-packages/tanto-1.1-py2.7.egg/etc/cron.d/tanto ./debian/tanto/etc/cron.d/tanto
 	
 	mkdir -p ./debian/tanto/usr/bin
 	ln -s /usr/share/python/tanto/bin/tanto ./debian/tanto/usr/bin/tanto

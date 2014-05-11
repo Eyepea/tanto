@@ -16,6 +16,9 @@ You don't need to open an access from your monitoring system to the monitored se
 The main use case of this tool is to monitor distant servers in a complex network where you can't connect directly for security reasons, typically with a large client.
 You need only to open **NSCA** or **HTTP(S)** port from the monitored server to the monitoring system.
 
+Moreover, if you don't have a monitoring server, Tanto has a standalone mode.
+You will receive alerts via e-mail directly.
+
 Technical details
 `````````````````
 
@@ -27,7 +30,7 @@ The behaviour of this tool is simple:
 
 #. It retrieves monitoring data **(1)** from **nagios-plugins**.
 
-#. Finally, it pushes the data **(2)** via **NSCA** (Shinken, Nagios, Icinga) or **HTTP(S)** (Shinken) to the monitoring server.
+#. Finally, it pushes the data **(2)** via **NSCA** (Shinken, Nagios, Icinga), **HTTP(S)** (Shinken) to the monitoring server or via **SMTP**.
 
 #. (**WS-Shinken only**) If the connexion between the monitored server and the monitoring system is broken, data is kept in a cache file, to be re-send the next run.
 
@@ -55,6 +58,24 @@ Usage
 - Default config files location: **/etc/tanto/**
 - Default cron file location: **/etc/cron.d/**
 
+#. Configure the nagios plugins you want to use in **inputs/nagios_plugins.cfg**:
+
+   #. Define the nagios plugins path with the **path** option in **[default_settings]** section.
+
+   #. The name of each section is the nagios plugin command.
+
+   #. Each setting is a CLI option of the nagios plugin.
+
+#. Adapt the checks frequency in: **/etc/cron.d/tanto**.
+
+Standalone mode
+```````````````
+
+#. Configure e-mail notifications in **outputs/email.cfg**.
+
+With a monitoring server
+````````````````````````
+
 #. Configure passive checks on your monitoring system:
 
    #. `Shinken <http://www.shinken-monitoring.org/wiki/nsca_daemon_module>`_
@@ -63,17 +84,8 @@ Usage
 
    #. `Icinga <https://wiki.icinga.org/display/howtos/Setting+up+NSCA+with+Icinga>`_
 
-#. Configure the nagios plugins you want to use in **nagios_plugins.cfg**:
+#. Fill in the credidentials for your monitoring system in **outputs/nsca.cfg** or **outputs/ws_shinken.cfg**.
 
-   #. Define the nagios plugins path with the **path** option in **[default_settings]** section.
-
-   #. The name of each section is the nagios plugin command.
-
-   #. Each setting is a CLI option of the nagios plugin.
-
-#. Fill in the credidentials for your monitoring system in **nsca.cfg** or **ws_shinken.cfg**.
-
-#. Adapt the checks frequency in: **/etc/cron.d/tanto**.
 
 CLI options
 -----------

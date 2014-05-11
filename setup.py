@@ -19,7 +19,7 @@ if version_info[:2] < (2, 7):
 
 setup(
     name='tanto',
-    version='1.0',
+    version='1.1',
     description='Takes monitoring data from Nagios-plugins to push with NSCA (Nagios or Icinga) or WS-Shinken.',
     long_description=long_description,
     author='Ludovic Gasc',
@@ -34,7 +34,8 @@ setup(
                   'monitoring_agent.outputs': ['configspecs/*.cfg']},
     data_files=[('etc/tanto', ['etc/tanto/logging.ini']),
                 ('etc/tanto/inputs', ['etc/tanto/inputs/nagios_plugins.cfg']),
-                ('etc/tanto/outputs', ['etc/tanto/outputs/nsca.cfg',
+                ('etc/tanto/outputs', ['etc/tanto/outputs/email.cfg',
+                                       'etc/tanto/outputs/nsca.cfg',
                                       'etc/tanto/outputs/ws_shinken.cfg']),
                 ('etc/cron.d', ['etc/cron.d/tanto'])],
     license='GNU Affero General Public License v3',
@@ -47,6 +48,7 @@ setup(
         'License :: OSI Approved :: GNU Affero General Public License v3',
         'Natural Language :: English',
         'Operating System :: POSIX',
+        'Programming Language :: Python',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: Implementation :: CPython',
