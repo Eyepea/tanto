@@ -51,7 +51,7 @@ class NagiosPlugins(object):
                 return_code = nagios_plugin.returncode
                 LOG.log(STATUSES[return_code][1],
                             "[nagios_plugins][%s] (%s status): %s",
-                            os.path.basename(command[0]),
+                            plugin,
                             STATUSES[return_code][0],
                             output)
                 yield {'return_code': int(return_code),
