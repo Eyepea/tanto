@@ -11,7 +11,7 @@ Depends: ${misc:Depends}, ${python:Depends}, nagios-plugins
 Conflicts: ep-monitoring
 XB-Python-Version: ${python:Versions}
 Provides: ${python:Provides}
-Description: Takes monitoring data from Nagios-plugins to push with NSCA 
+Description: Takes monitoring data from Nagios-plugins to push with NSCA
  To monitor the servers with Shinken, Nagios or Icinga, system administrators usually configure active checks of the monitored servers.
  It means the monitoring system must have a direct network access to the monitored server.
  .

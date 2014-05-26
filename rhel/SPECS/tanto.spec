@@ -4,8 +4,8 @@
 Name: tanto
 Version: 1.1
 Release: 1%{?dist}
-License: GPLv3 
-Source0: https://projects.eyepea.eu/%{name}-%{version}.tar.bz2
+License: AGPLv3 
+Source0: https://github.com/Eyepea/%{name}/archive/%{version}.tar.gz
 Group: Development/Languages
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -17,11 +17,18 @@ Requires: python-pynsca
 Requires: python-requests
 Requires: nagios-plugins-all
 
-Summary: Monitoring daemon
-URL: http://www.eyepea.eu
+Summary: Takes monitoring data from Nagios-plugins to push with NSCA
+URL: https://github.com/Eyepea/tanto
 
 %description
-Monitoring daemon.
+To monitor the servers with Shinken, Nagios or Icinga, system administrators usually configure active checks of the monitored servers.
+It means the monitoring system must have a direct network access to the monitored server.
+.
+With Tanto, this model is reverted, it does passive checks of your monitored servers.
+You don't need to open an access from your monitoring system to the monitored servers.
+.
+The main use case of this tool is to monitor distant servers in a complex network where you can't connect directly for security reasons, typically with a large client.
+You need only to open NSCA or HTTP(S) port from the monitored server to the monitoring system.
 
 %prep
 %setup -n %{name}-%{version}
