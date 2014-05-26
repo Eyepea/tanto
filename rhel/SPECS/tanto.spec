@@ -64,7 +64,7 @@ rm -rf %{buildroot}
 %attr(0755,root,root) %{python_sitelib}/monitoring_agent/*.py*
 %attr(0755,root,root) %{python_sitelib}/monitoring_agent/*/*.py*
 %attr(0755,root,root) %{python_sitelib}/monitoring_agent/*/configspecs/*.cfg
-%{python_sitelib}/tanto-%{version}-py2.6.egg-info/
+%{python_sitelib}/tanto-%{version}-py%{pyver}.egg-info/
 
 %dir
 
