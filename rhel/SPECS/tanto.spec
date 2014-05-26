@@ -5,8 +5,8 @@ Name: tanto
 Version: 1.1
 Release: 1%{?dist}
 License: AGPLv3 
-Source0: https://github.com/Eyepea/%{name}/archive/%{version}.tar.gz
-Group: Development/Languages
+Source0: https://pypi.python.org/packages/source/t/%{real_name}/%{real_name}-%{version}.tar.gz
+Group: Applications/System
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: python-devel
