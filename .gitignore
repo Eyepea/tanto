@@ -1,5 +1,6 @@
 .directory
 venv/
+pyvenv/
 build/
 dist/
 *.egg-info/
@@ -18,3 +19,5 @@ python-build-stamp-*
 .project
 .pydevproject
 .settings
+*.iml
+.idea/
