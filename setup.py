@@ -19,7 +19,7 @@ if version_info[:2] < (2, 7):
 
 setup(
     name='tanto',
-    version='1.1',
+    version='1.1.1',
     description='Takes monitoring data from Nagios-plugins to push with NSCA (Nagios or Icinga) or WS-Shinken.',
     long_description=long_description,
     author='Ludovic Gasc',

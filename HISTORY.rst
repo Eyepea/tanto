@@ -3,6 +3,11 @@
 Release History
 ---------------
 
+1.1.1 (YYYY-MM-DD)
+``````````````````
+
+- Support shell commands
+
 1.1 (2014-05-12)
 ````````````````
 
