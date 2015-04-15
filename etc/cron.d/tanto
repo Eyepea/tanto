@@ -1,2 +1,2 @@
 MAILTO=""
-* * * * * root /usr/bin/env tanto &> /dev/null
+* * * * * root /usr/bin/env tanto > /dev/null 2>&1
