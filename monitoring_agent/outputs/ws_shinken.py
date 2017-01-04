@@ -51,7 +51,7 @@ class WsShinken(object):
         '''
         Constructor
         '''
-        self.http_headers = {'content-type': 'application/json', 'accept': 'application/json'}
+        self.http_headers = {'content-type': 'application/x-www-form-urlencoded', 'accept': '*/*'}
         # Setup servers dict
         self.servers = configurator.read(config_file,
                                          configspec='outputs/configspecs/ws_shinken.cfg',

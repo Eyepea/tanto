@@ -82,7 +82,8 @@ if __name__ == '__main__':
                                                        np_result['output'],
                                                        np_result['service_description'],
                                                        np_result['specific_servers'])
-                            CONFIG['ws_shinken'].send_result(np_result['output'],
+                            CONFIG['ws_shinken'].send_result(np_result['return_code'],
+                                                             np_result['output'],
                                                              np_result['service_description'],
                                                              np_result['time_stamp'],
                                                              np_result['specific_servers'])
