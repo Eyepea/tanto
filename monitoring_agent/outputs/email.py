@@ -79,7 +79,7 @@ class Email(object):
                 else:
                     smtp_server = smtplib.SMTP(self.servers[server]['host'], self.servers[server]['port'])
 
-                if self.servers[server]['login']:
+                if self.servers[server]['login'] and len(self.servers[server]['login']) > 0:
                     smtp_server.login(self.servers[server]['login'], self.servers[server]['password'])
                 smtp_server.sendmail(self.servers[server]['from'], self.servers[server]['to'], msg.as_string())
                 smtp_server.quit()
